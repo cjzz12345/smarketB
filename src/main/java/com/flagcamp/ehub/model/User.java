@@ -1,25 +1,44 @@
 package com.flagcamp.ehub.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@JsonDeserialize(builder = User.Builder.class)
 public class User {
 
     @Id
+    @JsonProperty("Username")
     private String username;
 
+    @JsonProperty("Password")
     private String password;
 
+    @JsonProperty("First_name")
     private String firstname;
 
+    @JsonProperty("Last_name")
     private String lastname;
 
+    @JsonProperty("Phone")
     private String phone;
 
-    private float balance;
+    @JsonProperty("Address")
+    private String address;
 
     public User() {}
+
+    public User(Builder builder){
+        this.username = builder.username;
+        this.password = builder.password;
+        this.firstname = builder.firstname;
+        this.lastname = builder.lastname;
+        this.phone = builder.phone;
+        this.address = builder.address;
+    }
 
     public String getUsername() {
         return username;
@@ -61,11 +80,60 @@ public class User {
         this.phone = phone;
     }
 
-    public float getBalance() {
-        return balance;
-    }
+    public String getAddress() {return address;}
 
-    public void setBalance(float balance) {
-        this.balance = balance;
+    public void setAddress(String address) {this.address = address;}
+
+    public static class Builder{
+
+        @JsonProperty("Username")
+        private String username;
+
+        @JsonProperty("Password")
+        private String password;
+
+        @JsonProperty("First_name")
+        private String firstname;
+
+        @JsonProperty("Last_name")
+        private String lastname;
+
+        @JsonProperty("Phone")
+        private String phone;
+
+        @JsonProperty("Address")
+        private String address;
+
+        public Builder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setFirstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public Builder setLastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public Builder setPhone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder setAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public User build(){return new User(this);}
     }
 }
