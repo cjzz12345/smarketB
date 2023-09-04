@@ -41,13 +41,13 @@ public class ImageService {
         return file;
     }
 
-    @Async
+
     public S3ObjectInputStream findByName(String fileName) {
         LOG.info("Downloading file with name {}", fileName);
         return amazonS3.getObject(s3BucketName, fileName).getObjectContent();
     }
 
-    @Async
+
     public String save(final MultipartFile multipartFile) {
         String filename = UUID.randomUUID().toString();
         try {

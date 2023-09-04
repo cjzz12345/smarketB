@@ -3,8 +3,7 @@ package com.flagcamp.ehub.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,22 +13,23 @@ public class Item {
 
     @Id
     @GeneratedValue
-    private UUID item_id;
+//    @Column(columnDefinition = "BINARY(32)")
+    private UUID id;
 
     @JsonProperty("Title")
-    private String item_name;
+    private String name;
 
     @JsonProperty("Description")
-    private String item_description;
+    private String description;
 
     @JsonProperty("Price")
-    private float item_price;
+    private float price;
 
     @JsonProperty("Inventory")
-    private int item_stock;
+    private int stock;
 
     @JsonProperty("Owner")
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL)
     @JoinColumn(name = "username")
     private User owner;
 
@@ -44,92 +44,104 @@ public class Item {
     public Item() {}
 
     public Item(Builder builder){
-        this.item_id = builder.item_id;
-        this.item_name = builder.item_name;
-        this.item_description = builder.item_description;
-        this.item_price = builder.item_price;
-        this.item_stock = builder.item_stock;
+        this.id = builder.id;
+        this.name = builder.name;
+        this.description = builder.description;
+        this.price = builder.price;
+        this.stock = builder.stock;
         this.owner = builder.owner;
         this.images = builder.images;
         this.carts = builder.carts;
     }
 
-    public UUID getItem_id() {
-        return item_id;
+    public UUID getId() {
+        return id;
     }
 
-    public void setItem_id(UUID item_id) {
-        this.item_id = item_id;
+    public Item setId(UUID id) {
+        this.id = id;
+        return this;
     }
 
-    public String getItem_name() {
-        return item_name;
+    public String getName() {
+        return name;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
+    public Item setName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public String getItem_description() {
-        return item_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setItem_description(String item_description) {
-        this.item_description = item_description;
+    public Item setDescription(String description) {
+        this.description = description;
+        return this;
     }
 
-    public float getItem_price() {
-        return item_price;
+    public float getPrice() {
+        return price;
     }
 
-    public void setItem_price(float item_price) {
-        this.item_price = item_price;
+    public Item setPrice(float price) {
+        this.price = price;
+        return this;
     }
 
-    public int getItem_stock() {
-        return item_stock;
+    public int getStock() {
+        return stock;
     }
 
-    public void setItem_stock(int item_stock) {
-        this.item_stock = item_stock;
+    public Item setStock(int stock) {
+        this.stock = stock;
+        return this;
     }
 
     public User getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public Item setOwner(User owner) {
         this.owner = owner;
+        return this;
     }
 
     public List<ItemImage> getImages() {
         return images;
     }
 
-    public void setImages(List<ItemImage> images) {
+    public Item setImages(List<ItemImage> images) {
         this.images = images;
+        return this;
     }
 
-    public List<CartItem> getCarts() {return carts;}
+    public List<CartItem> getCarts() {
+        return carts;
+    }
 
-    public void setCarts(List<CartItem> carts) {this.carts = carts;}
+    public Item setCarts(List<CartItem> carts) {
+        this.carts = carts;
+        return this;
+    }
 
     public static class Builder{
 
         @JsonProperty("Id")
-        private UUID item_id;
+        private UUID id;
 
         @JsonProperty("Title")
-        private String item_name;
+        private String name;
 
         @JsonProperty("Description")
-        private String item_description;
+        private String description;
 
         @JsonProperty("Price")
-        private float item_price;
+        private float price;
 
         @JsonProperty("Inventory")
-        private int item_stock;
+        private int stock;
 
         @JsonProperty("Owner")
         private User owner;
@@ -137,31 +149,31 @@ public class Item {
         @JsonProperty("Images")
         private List<ItemImage> images;
 
-        @JsonProperty("Carts")
+        @JsonIgnore
         private List<CartItem> carts;
 
-        public Builder setItem_id(UUID item_id) {
-            this.item_id = item_id;
+        public Builder setId(UUID id) {
+            this.id = id;
             return this;
         }
 
-        public Builder setItem_name(String item_name) {
-            this.item_name = item_name;
+        public Builder setName(String name) {
+            this.name = name;
             return this;
         }
 
-        public Builder setItem_description(String item_description) {
-            this.item_description = item_description;
+        public Builder setDescription(String description) {
+            this.description = description;
             return this;
         }
 
-        public Builder setItem_price(float item_price) {
-            this.item_price = item_price;
+        public Builder setPrice(float price) {
+            this.price = price;
             return this;
         }
 
-        public Builder setItem_stock(int item_stock) {
-            this.item_stock = item_stock;
+        public Builder setStock(int stock) {
+            this.stock = stock;
             return this;
         }
 

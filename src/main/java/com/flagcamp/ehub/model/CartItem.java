@@ -1,6 +1,6 @@
 package com.flagcamp.ehub.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class CartItem {
