@@ -2,6 +2,7 @@ package com.flagcamp.ehub.service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.flagcamp.ehub.model.ItemImage;
@@ -16,7 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -69,7 +69,8 @@ public class ImageService {
     @Async
     public void delete(ItemImage image){
         try{
-            amazonS3.deleteObject(s3BucketName, image.getUrl());
+            DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(s3BucketName, image.getUrl());
+            amazonS3.deleteObject(deleteObjectRequest);
         }catch (AmazonServiceException e){
             LOG.error("Error {} occurred while deleting file", e.getLocalizedMessage());
         }

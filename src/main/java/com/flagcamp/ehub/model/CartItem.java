@@ -8,13 +8,19 @@ public class CartItem {
     @EmbeddedId
     private CartItemKey cartItemKey;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+//    @ManyToOne
+//    @JoinColumn(name = "id")
+//    private Item item;
 
     private int count;
 
     public CartItem(){}
+
+    public CartItem(CartItemKey cartItemKey, Item item, int count) {
+        this.cartItemKey = cartItemKey;
+//        this.item = item;
+        this.count = count;
+    }
 
     public CartItemKey getCartItemKey() {
         return cartItemKey;

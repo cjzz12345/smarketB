@@ -37,9 +37,9 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemImage> images;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CartItem> carts;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<CartItem> carts;
 
     public Item() {}
 
@@ -51,7 +51,7 @@ public class Item {
         this.stock = builder.stock;
         this.owner = builder.owner;
         this.images = builder.images;
-        this.carts = builder.carts;
+//        this.carts = builder.carts;
     }
 
     public UUID getId() {
@@ -117,14 +117,14 @@ public class Item {
         return this;
     }
 
-    public List<CartItem> getCarts() {
-        return carts;
-    }
-
-    public Item setCarts(List<CartItem> carts) {
-        this.carts = carts;
-        return this;
-    }
+//    public List<CartItem> getCarts() {
+//        return carts;
+//    }
+//
+//    public Item setCarts(List<CartItem> carts) {
+//        this.carts = carts;
+//        return this;
+//    }
 
     public static class Builder{
 
@@ -149,8 +149,8 @@ public class Item {
         @JsonProperty("Images")
         private List<ItemImage> images;
 
-        @JsonIgnore
-        private List<CartItem> carts;
+//        @JsonIgnore
+//        private List<CartItem> carts;
 
         public Builder setId(UUID id) {
             this.id = id;
@@ -187,10 +187,10 @@ public class Item {
             return this;
         }
 
-        public Builder setCarts(List<CartItem> carts) {
-            this.carts = carts;
-            return this;
-        }
+//        public Builder setCarts(List<CartItem> carts) {
+//            this.carts = carts;
+//            return this;
+//        }
 
         public Item build(){return new Item(this);}
     }

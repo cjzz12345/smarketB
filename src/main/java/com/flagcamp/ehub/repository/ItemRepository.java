@@ -13,5 +13,7 @@ public interface ItemRepository extends JpaRepository<Item, UUID> {
 
     Item findByIdAndOwner(UUID id, User user);
 
+    Item findItemById(UUID id);
+
     List<Item> findByName(String itemName);
 }
