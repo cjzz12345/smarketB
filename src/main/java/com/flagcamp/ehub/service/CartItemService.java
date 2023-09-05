@@ -1,5 +1,6 @@
 package com.flagcamp.ehub.service;
 
+import com.flagcamp.ehub.exception.CartItemNotFoundException;
 import com.flagcamp.ehub.exception.ItemNotFoundException;
 import com.flagcamp.ehub.model.CartItem;
 import com.flagcamp.ehub.model.CartItemKey;
@@ -35,6 +36,16 @@ public class CartItemService {
         }else{
             cartItem.setCount(quantity + cartItem.getCount());
             cartItemRepository.save(cartItem);
+        }
+    }
+
+    public void delete(UUID id, String username) throws CartItemNotFoundException {
+        CartItemKey key = new CartItemKey(id, username);
+        CartItem cartItem = cartItemRepository.findByCartItemKey(key);
+        if(cartItem == null){
+            throw new CartItemNotFoundException("CartItem does not exist");
+        }else{
+            cartItemRepository.deleteById(key);
         }
     }
 }
