@@ -13,7 +13,7 @@ public class Item {
 
     @Id
     @GeneratedValue
-//    @Column(columnDefinition = "BINARY(32)")
+    @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("Title")
@@ -29,7 +29,7 @@ public class Item {
     private int stock;
 
     @JsonProperty("Owner")
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "username")
     private User owner;
 

@@ -1,5 +1,6 @@
 package com.flagcamp.ehub.controller;
 
+import com.flagcamp.ehub.exception.ImageNotFoundException;
 import com.flagcamp.ehub.exception.ItemNotFoundException;
 import com.flagcamp.ehub.model.Item;
 import com.flagcamp.ehub.model.User;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -38,8 +40,13 @@ public class ItemController {
     }
 
     @DeleteMapping("/sell/{itemId}")
-    public void deleteItem(@PathVariable UUID itemId, Principal principal) throws ItemNotFoundException {
+    public void deleteItem(@PathVariable UUID itemId, Principal principal) throws ItemNotFoundException, ImageNotFoundException {
 //        itemService.delete(itemId, principal.getName());
         itemService.delete(itemId, "asdf");
+    }
+
+    @GetMapping("/search")
+    public List<Item> searchItem(@RequestParam("Title") String title){
+        return itemService.searchExactName(title);
     }
 }

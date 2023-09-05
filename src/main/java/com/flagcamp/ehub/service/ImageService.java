@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.flagcamp.ehub.model.ItemImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -41,13 +43,13 @@ public class ImageService {
         return file;
     }
 
-
+    @Async
     public S3ObjectInputStream findByName(String fileName) {
         LOG.info("Downloading file with name {}", fileName);
         return amazonS3.getObject(s3BucketName, fileName).getObjectContent();
     }
 
-
+    @Async
     public String save(final MultipartFile multipartFile) {
         String filename = UUID.randomUUID().toString();
         try {
@@ -62,5 +64,14 @@ public class ImageService {
             LOG.error("Error {} occurred while deleting temporary file", ex.getLocalizedMessage());
         }
         return filename;
+    }
+
+    @Async
+    public void delete(ItemImage image){
+        try{
+            amazonS3.deleteObject(s3BucketName, image.getUrl());
+        }catch (AmazonServiceException e){
+            LOG.error("Error {} occurred while deleting file", e.getLocalizedMessage());
+        }
     }
 }

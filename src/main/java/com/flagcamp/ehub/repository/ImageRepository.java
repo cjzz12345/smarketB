@@ -1,17 +1,14 @@
 package com.flagcamp.ehub.repository;
 
 import com.flagcamp.ehub.model.Item;
-import com.flagcamp.ehub.model.User;
+import com.flagcamp.ehub.model.ItemImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, UUID> {
+public interface ImageRepository extends JpaRepository<ItemImage, String> {
 
-    Item findByIdAndOwner(UUID id, User user);
-
-    List<Item> findByName(String itemName);
+    List<ItemImage> findByItem(Item item);
 }

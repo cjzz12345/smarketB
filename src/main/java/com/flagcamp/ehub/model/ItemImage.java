@@ -1,5 +1,6 @@
 package com.flagcamp.ehub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,7 +10,8 @@ public class ItemImage {
     private String url;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "id")
+    @JsonIgnore
     private Item item;
 
     public ItemImage() {}
