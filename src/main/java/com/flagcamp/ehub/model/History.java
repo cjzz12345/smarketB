@@ -15,8 +15,6 @@ public class History {
     @JoinColumn(name = "username")
     private User buyer;
 
-    private String items;
-
     private String details;
 
     private LocalDateTime checkOutTime;
@@ -27,39 +25,35 @@ public class History {
         return order_id;
     }
 
-    public void setOrder_id(UUID order_id) {
+    public History setOrder_id(UUID order_id) {
         this.order_id = order_id;
+        return this;
     }
 
     public User getBuyer() {
         return buyer;
     }
 
-    public void setBuyer(User buyer) {
+    public History setBuyer(User buyer) {
         this.buyer = buyer;
-    }
-
-    public String getItems() {
-        return items;
-    }
-
-    public void setItems(String items) {
-        this.items = items;
+        return this;
     }
 
     public String getDetails() {
         return details;
     }
 
-    public void setDetails(String details) {
+    public History setDetails(String details) {
         this.details = details;
+        return this;
     }
 
     public LocalDateTime getCheckOutTime() {
         return checkOutTime;
     }
 
-    public void setCheckOutTime(LocalDateTime checkOutTime) {
+    public History setCheckOutTime(LocalDateTime checkOutTime) {
         this.checkOutTime = checkOutTime;
+        return this;
     }
 }

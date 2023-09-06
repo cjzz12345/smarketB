@@ -60,4 +60,9 @@ public class ItemService {
     public List<Item> searchExactName(String itemName){
         return itemRepository.findByName(itemName);
     }
+
+    public void updateQuantity(UUID id, int increasedBy){
+        Item item = itemRepository.findItemById(id);
+        itemRepository.save(item.setStock(item.getStock() + increasedBy));
+    }
 }

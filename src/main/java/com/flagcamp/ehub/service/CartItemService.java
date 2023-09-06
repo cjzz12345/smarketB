@@ -5,6 +5,7 @@ import com.flagcamp.ehub.exception.ItemNotFoundException;
 import com.flagcamp.ehub.model.CartItem;
 import com.flagcamp.ehub.model.CartItemKey;
 import com.flagcamp.ehub.model.Item;
+import com.flagcamp.ehub.model.User;
 import com.flagcamp.ehub.repository.CartItemRepository;
 import com.flagcamp.ehub.repository.ItemRepository;
 import jakarta.transaction.Transactional;
@@ -32,7 +33,7 @@ public class CartItemService {
         }
         CartItem cartItem = cartItemRepository.findByCartItemKey(new CartItemKey(id, username));
         if(cartItem == null){
-            cartItemRepository.save(new CartItem(new CartItemKey(id, username), item, quantity));
+            cartItemRepository.save(new CartItem(new CartItemKey(id, username), new User.Builder().setUsername(username).build(), quantity));
         }else{
             cartItem.setCount(quantity + cartItem.getCount());
             cartItemRepository.save(cartItem);

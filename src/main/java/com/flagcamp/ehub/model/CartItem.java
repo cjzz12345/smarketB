@@ -8,17 +8,17 @@ public class CartItem {
     @EmbeddedId
     private CartItemKey cartItemKey;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id")
-//    private Item item;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User buyer;
 
     private int count;
 
     public CartItem(){}
 
-    public CartItem(CartItemKey cartItemKey, Item item, int count) {
+    public CartItem(CartItemKey cartItemKey, User buyer, int count) {
         this.cartItemKey = cartItemKey;
-//        this.item = item;
+        this.buyer = buyer;
         this.count = count;
     }
 
@@ -28,6 +28,14 @@ public class CartItem {
 
     public void setCartItemKey(CartItemKey cartItemKey) {
         this.cartItemKey = cartItemKey;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
     }
 
     public int getCount() {

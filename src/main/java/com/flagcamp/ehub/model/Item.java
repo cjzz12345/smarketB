@@ -126,6 +126,10 @@ public class Item {
 //        return this;
 //    }
 
+    public String toString(){
+        return this.id.toString() + "," + this.name + "," + this.description + "," + this.price + "," + this.owner.getUsername() + "," ;
+    }
+
     public static class Builder{
 
         @JsonProperty("Id")
