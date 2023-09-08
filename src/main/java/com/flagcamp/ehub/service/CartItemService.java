@@ -40,6 +40,7 @@ public class CartItemService {
         }
     }
 
+    @Transactional
     public void delete(UUID id, String username) throws CartItemNotFoundException {
         CartItemKey key = new CartItemKey(id, username);
         CartItem cartItem = cartItemRepository.findByCartItemKey(key);

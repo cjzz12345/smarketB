@@ -61,6 +61,7 @@ public class ItemService {
         return itemRepository.findByName(itemName);
     }
 
+    @Transactional
     public void updateQuantity(UUID id, int increasedBy){
         Item item = itemRepository.findItemById(id);
         itemRepository.save(item.setStock(item.getStock() + increasedBy));

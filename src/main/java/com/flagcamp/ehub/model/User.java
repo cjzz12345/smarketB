@@ -1,5 +1,6 @@
 package com.flagcamp.ehub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -14,7 +15,7 @@ public class User {
     @JsonProperty("Username")
     private String username;
 
-    @JsonProperty("Password")
+    @JsonIgnore
     private String password;
 
     @JsonProperty("First_name")
@@ -52,8 +53,9 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public String getFirstname() {
