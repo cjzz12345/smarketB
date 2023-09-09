@@ -2,10 +2,12 @@ package com.flagcamp.ehub.controller;
 
 import com.flagcamp.ehub.exception.CartItemNotFoundException;
 import com.flagcamp.ehub.exception.ItemNotFoundException;
+import com.flagcamp.ehub.model.CartItem;
 import com.flagcamp.ehub.service.CartItemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +25,12 @@ public class CartItemController {
                               Principal principal) throws ItemNotFoundException {
 //        cartItemService.add(id, principal.getName(), count);
         cartItemService.add(id, "asdf", count);
+    }
+
+    @GetMapping("/cart")
+    public List<CartItem> getCartItems(Principal principal){
+//        return cartItemService.get(principal.getName());
+        return cartItemService.get("asdf");
     }
 
     @DeleteMapping("/cart/{item_id}")

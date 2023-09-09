@@ -11,6 +11,7 @@ import com.flagcamp.ehub.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,6 +39,10 @@ public class CartItemService {
             cartItem.setCount(quantity + cartItem.getCount());
             cartItemRepository.save(cartItem);
         }
+    }
+
+    public List<CartItem> get(String username){
+        return cartItemRepository.findByBuyer(new User.Builder().setUsername(username).build());
     }
 
     @Transactional
