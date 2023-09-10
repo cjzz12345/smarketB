@@ -25,8 +25,9 @@ public class ItemImage {
         return url;
     }
 
-    public void setUrl(String url) {
+    public ItemImage setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public Item getItem() {

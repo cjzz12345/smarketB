@@ -2,10 +2,8 @@ package com.flagcamp.ehub.service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import com.flagcamp.ehub.model.ItemImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +22,7 @@ public class ImageService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ImageService.class);
 
-    private AmazonS3 amazonS3;
+    private final AmazonS3 amazonS3;
 
     @Value("${s3.bucket.name}")
     private String s3BucketName;
@@ -64,15 +62,5 @@ public class ImageService {
             LOG.error("Error {} occurred while deleting temporary file", ex.getLocalizedMessage());
         }
         return filename;
-    }
-
-    @Async
-    public void delete(ItemImage image){
-        try{
-            DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(s3BucketName, image.getUrl());
-            amazonS3.deleteObject(deleteObjectRequest);
-        }catch (AmazonServiceException e){
-            LOG.error("Error {} occurred while deleting file", e.getLocalizedMessage());
-        }
     }
 }
