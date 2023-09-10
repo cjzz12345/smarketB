@@ -2,22 +2,27 @@ package com.flagcamp.ehub.controller;
 
 import com.flagcamp.ehub.exception.UserAlreadyExistException;
 import com.flagcamp.ehub.model.User;
-import com.flagcamp.ehub.service.RegisterService;
+import com.flagcamp.ehub.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RegisterController {
+public class UserController {
 
-    private final RegisterService registerService;
+    private final UserService userService;
 
-    public RegisterController(RegisterService registerService) {
-        this.registerService = registerService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/register")
     public void addUser(@RequestBody User user) throws UserAlreadyExistException {
-        registerService.add(user);
+        userService.add(user);
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestBody User user){
+        return userService.loginAndGenerateToken(user);
     }
 }

@@ -6,10 +6,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @JsonDeserialize(builder = User.Builder.class)
-public class User {
+public class User implements UserDetails {
 
     @Id
     @JsonProperty("Username")
@@ -40,6 +47,20 @@ public class User {
         this.phone = builder.phone;
         this.address = builder.address;
     }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
+    }
+
+    public boolean isAccountNonExpired(){ return true; }
+
+    public boolean isAccountNonLocked(){ return true; }
+
+    public boolean isCredentialsNonExpired(){ return true; }
+
+    public boolean isEnabled(){ return true; }
 
     public String getUsername() {
         return username;
