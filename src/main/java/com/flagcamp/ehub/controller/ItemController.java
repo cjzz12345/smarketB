@@ -47,4 +47,14 @@ public class ItemController {
     public List<Item> searchItem(@RequestParam("Title") String title){
         return itemService.searchExactName(title);
     }
+
+    @GetMapping("/item")
+    public Item getItemById(@RequestParam UUID id) throws ItemNotFoundException {
+        return itemService.searchId(id);
+    }
+
+    @GetMapping("/products")
+    public List<Item> getItems(){
+        return itemService.getAllItems();
+    }
 }

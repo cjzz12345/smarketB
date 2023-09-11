@@ -1,5 +1,6 @@
 package com.flagcamp.ehub.controller;
 
+import com.flagcamp.ehub.exception.ItemNotFoundException;
 import com.flagcamp.ehub.exception.UserAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,5 +13,10 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(UserAlreadyExistException.class)
     public final ResponseEntity<String> handleUserAlreadyExistExceptions(Exception e, WebRequest request){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ItemNotFoundException.class)
+    public final ResponseEntity<String> handleItemNotFoundExceptions(Exception e, WebRequest request){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

@@ -62,4 +62,29 @@ public class ItemService {
                         .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
+
+    public Item searchId(UUID itemID) throws ItemNotFoundException {
+        Item item = itemRepository.findItemById(itemID);
+        if(item == null){
+            throw new ItemNotFoundException("Item with uuid" + itemID + "does not exist");
+        }
+        item.setImages(item.getImages()
+                .stream()
+                .map(image -> {
+                    image.setUrl(s3URL + image.getUrl());
+                    return image;
+                })
+                .collect(Collectors.toList()));
+        return item;
+    }
+
+    public List<Item> getAllItems(){
+        return itemRepository.findAll()
+                .stream()
+                .map(item -> item.setImages(item.getImages()
+                        .stream()
+                        .map(image -> image.setUrl(s3URL+image.getUrl()))
+                        .collect(Collectors.toList())))
+                .collect(Collectors.toList());
+    }
 }
