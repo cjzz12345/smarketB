@@ -21,7 +21,6 @@ public class HistoryController {
 
     @PostMapping("/checkout")
     public void checkout(Principal principal) throws CartEmptyException, ItemNotFoundException, ItemLowInStockException {
-//        historyService.checkout(new User.Builder().setUsername(principal.getName()).build());
-        historyService.checkout(new User.Builder().setUsername("asdf").build());
+        historyService.checkout(new User.Builder().setUsername(principal.getName()).build());
     }
 }

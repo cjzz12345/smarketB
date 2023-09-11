@@ -33,16 +33,14 @@ public class ItemController {
                 .setDescription(description)
                 .setPrice(price)
                 .setStock(inventory)
-//                .setOwner(new User.Builder().setUsername(principal.getName()).build())
-                .setOwner(new User.Builder().setUsername("asdf").build())
+                .setOwner(new User.Builder().setUsername(principal.getName()).build())
                 .build();
         itemService.add(item, images);
     }
 
     @DeleteMapping("/sell/{itemId}")
     public void deleteItem(@PathVariable UUID itemId, Principal principal) throws ItemNotFoundException, ImageNotFoundException {
-//        itemService.delete(itemId, principal.getName());
-        itemService.delete(itemId, "asdf");
+        itemService.delete(itemId, principal.getName());
     }
 
     @GetMapping("/search")

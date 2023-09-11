@@ -23,19 +23,16 @@ public class CartItemController {
     public void addItemToCart(@RequestParam("Item_id") UUID id,
                               @RequestParam("Quantity") int count,
                               Principal principal) throws ItemNotFoundException {
-//        cartItemService.add(id, principal.getName(), count);
-        cartItemService.add(id, "asdf", count);
+        cartItemService.add(id, principal.getName(), count);
     }
 
     @GetMapping("/cart")
     public List<CartItem> getCartItems(Principal principal){
-//        return cartItemService.get(principal.getName());
-        return cartItemService.get("asdf");
+        return cartItemService.get(principal.getName());
     }
 
     @DeleteMapping("/cart/{item_id}")
     public void deleteItemFromCart(@PathVariable UUID item_id, Principal principal) throws CartItemNotFoundException {
-//        cartItemService.delete(item_id, principal.getName());
-        cartItemService.delete(item_id, "asdf");
+        cartItemService.delete(item_id, principal.getName());
     }
 }

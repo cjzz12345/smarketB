@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Username\": \"asdf\",\r\n    \"Password\": \"asdf\",\r\n    \"Last_name\": \"as\",\r\n    \"First_name\": \"df\",\r\n    \"Address\": \"asdfasdf\",\r\n    \"Phone\": \"12344567890\"\r\n}",
+					"raw": "{\r\n    \"Username\": \"user\",\r\n    \"Password\": \"1234\",\r\n    \"Last_name\": \"as\",\r\n    \"First_name\": \"df\",\r\n    \"Address\": \"asdfasdf\",\r\n    \"Phone\": \"1234567890\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -36,15 +36,12 @@
 		},
 		{
 			"name": "Login User",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Username\": \"asdf\",\r\n    \"Password\": \"asdf\"\r\n}",
+					"raw": "{\r\n    \"Username\": \"user\",\r\n    \"Password\": \"1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

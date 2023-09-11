@@ -9,6 +9,16 @@
 		{
 			"name": "Upload Item",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -16,33 +26,28 @@
 					"formdata": [
 						{
 							"key": "Title",
-							"value": "asdf",
+							"value": "item",
 							"type": "text"
 						},
 						{
 							"key": "Description",
-							"value": "asdfasdf",
+							"value": "this is an item",
 							"type": "text"
 						},
 						{
 							"key": "Price",
-							"value": "5",
+							"value": "10",
 							"type": "text"
 						},
 						{
 							"key": "Inventory",
-							"value": "1",
+							"value": "5",
 							"type": "text"
 						},
 						{
 							"key": "Images",
 							"type": "file",
-							"src": "/C:/Users/luetianzhiyi/Desktop/apple.PNG"
-						},
-						{
-							"key": "Owner",
-							"value": "asdf",
-							"type": "text"
+							"src": "/C:/Users/luetianzhiyi/Desktop/spring security.jpg"
 						}
 					]
 				},
@@ -63,10 +68,20 @@
 		{
 			"name": "Delete Item",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/sell/7fc3f411-ca95-406a-9cd9-5d2f70b3fe04",
+					"raw": "http://localhost:8080/sell/3759d116-71cc-47f6-81c5-454d09723f45",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -74,7 +89,7 @@
 					"port": "8080",
 					"path": [
 						"sell",
-						"7fc3f411-ca95-406a-9cd9-5d2f70b3fe04"
+						"3759d116-71cc-47f6-81c5-454d09723f45"
 					]
 				}
 			},
@@ -86,7 +101,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/search?Title=asdf",
+					"raw": "http://localhost:8080/search?Title=item",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -98,7 +113,7 @@
 					"query": [
 						{
 							"key": "Title",
-							"value": "asdf"
+							"value": "item"
 						}
 					]
 				}
@@ -108,10 +123,20 @@
 		{
 			"name": "Add Item to Cart",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cart?Item_id&Quantity=1",
+					"raw": "http://localhost:8080/cart?Item_id=62e62bf1-7222-4f94-9ab9-5ec2fbb2a8bf&Quantity=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -123,7 +148,7 @@
 					"query": [
 						{
 							"key": "Item_id",
-							"value": null
+							"value": "62e62bf1-7222-4f94-9ab9-5ec2fbb2a8bf"
 						},
 						{
 							"key": "Quantity",
@@ -137,6 +162,16 @@
 		{
 			"name": "Get Cart",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -156,10 +191,20 @@
 		{
 			"name": "Delete Item from Cart",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cart/",
+					"raw": "http://localhost:8080/cart/62e62bf1-7222-4f94-9ab9-5ec2fbb2a8bf",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -167,7 +212,7 @@
 					"port": "8080",
 					"path": [
 						"cart",
-						""
+						"62e62bf1-7222-4f94-9ab9-5ec2fbb2a8bf"
 					]
 				}
 			},
@@ -176,6 +221,16 @@
 		{
 			"name": "Checkout",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"url": {

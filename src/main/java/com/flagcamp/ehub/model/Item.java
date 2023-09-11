@@ -3,8 +3,11 @@ package com.flagcamp.ehub.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @JsonDeserialize(builder = Item.Builder.class)
@@ -112,7 +115,11 @@ public class Item {
     }
 
     public String toString(){
-        return this.id.toString() + "," + this.name + "," + this.description + "," + this.price + "," + this.owner.getUsername() + "," ;
+        return this.id.toString() + "," + this.name + "," + this.description + "," +
+                this.price + "," + this.owner.getUsername() + "," + this.images
+                .stream()
+                .map(image -> "https://ehub-images.s3.us-west-1.amazonaws.com/"+image.getUrl()+",")
+                .collect(Collectors.joining());
     }
 
     public static class Builder{
