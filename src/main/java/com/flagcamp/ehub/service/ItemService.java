@@ -87,4 +87,8 @@ public class ItemService {
                         .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
+
+    public List<Item> getItemsByOwner(String username){
+        return itemRepository.findItemsByOwner(new User.Builder().setUsername(username).build());
+    }
 }

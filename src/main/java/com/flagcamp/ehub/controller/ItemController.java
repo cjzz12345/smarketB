@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,5 +57,22 @@ public class ItemController {
     @GetMapping("/products")
     public List<Item> getItems(){
         return itemService.getAllItems();
+    }
+
+    @GetMapping("/list")
+    public List<Item> getItemByOwner(@RequestParam("username") String username){
+        return itemService.getItemsByOwner(username);
+    }
+
+    @PostMapping("/list/products")
+    public List<Item> getListProducts(@RequestBody List<UUID> ids) throws ItemNotFoundException{
+        List<Item> items = new ArrayList<>();
+        for (UUID id : ids) { System.out.println(items);
+
+            items.add(itemService.searchId(id));
+            System.out.println(items);
+        }
+        System.out.println(items);
+        return items;
     }
 }

@@ -1,16 +1,16 @@
 package com.flagcamp.ehub.service;
 
 import com.flagcamp.ehub.exception.CartItemNotFoundException;
+import com.flagcamp.ehub.exception.ItemLowInStockException;
 import com.flagcamp.ehub.exception.ItemNotFoundException;
-import com.flagcamp.ehub.model.CartItem;
-import com.flagcamp.ehub.model.CartItemKey;
-import com.flagcamp.ehub.model.Item;
-import com.flagcamp.ehub.model.User;
+import com.flagcamp.ehub.model.*;
 import com.flagcamp.ehub.repository.CartItemRepository;
+import com.flagcamp.ehub.repository.HistoryRepository;
 import com.flagcamp.ehub.repository.ItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,9 +21,12 @@ public class CartItemService {
 
     private final ItemRepository itemRepository;
 
-    public CartItemService(CartItemRepository cartItemRepository, ItemRepository itemRepository) {
+    private final HistoryRepository historyRepository;
+
+    public CartItemService(CartItemRepository cartItemRepository, ItemRepository itemRepository, HistoryRepository historyRepository) {
         this.cartItemRepository = cartItemRepository;
         this.itemRepository = itemRepository;
+        this.historyRepository = historyRepository;
     }
 
     @Transactional
@@ -54,5 +57,27 @@ public class CartItemService {
         }else{
             cartItemRepository.deleteById(key);
         }
+    }
+
+    @Transactional
+    public void checkout(List<CheckedItem> items, User buyer) throws ItemNotFoundException, ItemLowInStockException {
+        StringBuilder result = new StringBuilder();
+        for(CheckedItem cartItem:items){
+            Item item = itemRepository.findItemById(cartItem.getId());
+            if(item == null){
+                throw new ItemNotFoundException("Item not found or has been deleted");
+            }
+            if(item.getStock() < cartItem.getCount()){
+                throw new ItemLowInStockException("This item does not have requested stock");
+            }
+            result.append(item.toString() + cartItem.getCount() + ";");
+            itemRepository.save(item.setStock(item.getStock() - cartItem.getCount()));
+            cartItemRepository.deleteById(new CartItemKey(cartItem.getId(), buyer.getUsername()));
+        }
+        historyRepository.save(new History()
+                .setOrder_id(UUID.randomUUID())
+                .setBuyer(buyer)
+                .setDetails(result.toString())
+                .setCheckOutTime(LocalDateTime.now()));
     }
 }

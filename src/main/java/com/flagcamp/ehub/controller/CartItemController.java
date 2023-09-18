@@ -1,8 +1,11 @@
 package com.flagcamp.ehub.controller;
 
 import com.flagcamp.ehub.exception.CartItemNotFoundException;
+import com.flagcamp.ehub.exception.ItemLowInStockException;
 import com.flagcamp.ehub.exception.ItemNotFoundException;
 import com.flagcamp.ehub.model.CartItem;
+import com.flagcamp.ehub.model.CheckedItem;
+import com.flagcamp.ehub.model.User;
 import com.flagcamp.ehub.service.CartItemService;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +37,10 @@ public class CartItemController {
     @DeleteMapping("/cart/{item_id}")
     public void deleteItemFromCart(@PathVariable UUID item_id, Principal principal) throws CartItemNotFoundException {
         cartItemService.delete(item_id, principal.getName());
+    }
+
+    @PostMapping("/cart/checkout")
+    public void checkoutCart(@RequestBody List<CheckedItem> items, Principal principal) throws ItemLowInStockException, ItemNotFoundException {
+        cartItemService.checkout(items,new User.Builder().setUsername(principal.getName()).build());
     }
 }

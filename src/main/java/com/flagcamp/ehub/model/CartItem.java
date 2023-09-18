@@ -14,12 +14,15 @@ public class CartItem {
 
     private int count;
 
+    private boolean checked;
+
     public CartItem(){}
 
     public CartItem(CartItemKey cartItemKey, User buyer, int count) {
         this.cartItemKey = cartItemKey;
         this.buyer = buyer;
         this.count = count;
+        this.checked = false;
     }
 
     public CartItemKey getCartItemKey() {
@@ -44,5 +47,12 @@ public class CartItem {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+    public boolean getChecked() {
+        return this.checked;
     }
 }
