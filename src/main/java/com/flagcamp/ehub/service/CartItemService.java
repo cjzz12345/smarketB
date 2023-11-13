@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,6 +63,7 @@ public class CartItemService {
     @Transactional
     public void checkout(List<CheckedItem> items, User buyer) throws ItemNotFoundException, ItemLowInStockException {
         StringBuilder result = new StringBuilder();
+        DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         for(CheckedItem cartItem:items){
             Item item = itemRepository.findItemById(cartItem.getId());
             if(item == null){
@@ -73,11 +75,15 @@ public class CartItemService {
             result.append(item.toString() + cartItem.getCount() + ";");
             itemRepository.save(item.setStock(item.getStock() - cartItem.getCount()));
             cartItemRepository.deleteById(new CartItemKey(cartItem.getId(), buyer.getUsername()));
+            historyRepository.save(new History()
+                    .setOrder_id(UUID.randomUUID())
+                    .setBuyer(buyer)
+                    .setCheckOutTime(LocalDateTime.now().format(dateTimeFormatter2))
+                    .setName(cartItem.getName())
+                    .setOwner(cartItem.getOwner())
+                    .setPrice(cartItem.price())
+                    .setCount(cartItem.getCount()));
         }
-        historyRepository.save(new History()
-                .setOrder_id(UUID.randomUUID())
-                .setBuyer(buyer)
-                .setDetails(result.toString())
-                .setCheckOutTime(LocalDateTime.now()));
+
     }
 }

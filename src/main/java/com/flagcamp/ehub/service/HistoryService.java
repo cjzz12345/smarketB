@@ -33,28 +33,7 @@ public class HistoryService {
     }
 
     @Transactional
-    public void checkout(User buyer) throws CartEmptyException, ItemNotFoundException, ItemLowInStockException {
-        List<CartItem> cartItemList = cartItemRepository.findByBuyer(buyer);
-        if(cartItemList == null || cartItemList.size() == 0){
-            throw new CartEmptyException("You don't have anything in your cart");
-        }
-        StringBuilder result = new StringBuilder();
-        for(CartItem cartItem:cartItemList){
-            Item item = itemRepository.findItemById(cartItem.getCartItemKey().getItem());
-            if(item == null){
-                throw new ItemNotFoundException("Item not found or has been deleted");
-            }
-            if(item.getStock() < cartItem.getCount()){
-                throw new ItemLowInStockException("This item does not have requested stock");
-            }
-            result.append(item.toString() + cartItem.getCount() + ";");
-            itemRepository.save(item.setStock(item.getStock() - cartItem.getCount()));
-        }
-        historyRepository.save(new History()
-                .setOrder_id(UUID.randomUUID())
-                .setBuyer(buyer)
-                .setDetails(result.toString())
-                .setCheckOutTime(LocalDateTime.now()));
-        cartItemRepository.deleteByBuyer(buyer);
+    public List<History> history(User buyer) throws CartEmptyException, ItemNotFoundException, ItemLowInStockException {
+        return historyRepository.findHistoryByBuyer(buyer);
     }
 }

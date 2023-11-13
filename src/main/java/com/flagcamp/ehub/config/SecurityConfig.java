@@ -52,7 +52,7 @@ public class SecurityConfig {
         return http
                 .cors().and()
                 .authorizeRequests()
-                .requestMatchers(HttpMethod.POST, "/register", "/login", "/logout", "/sell", "/cart/*", "/checkout", "/list/products").permitAll()
+                .requestMatchers(HttpMethod.POST, "/register", "/login", "/logout", "/sell", "/cart/*", "/checkout", "/list/products", "/history").permitAll()
                 .requestMatchers(HttpMethod.GET, "/search/**", "/cart", "/products", "/item/**", "/list").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/sell/*", "/cart/*").permitAll()
                 .anyRequest().authenticated()

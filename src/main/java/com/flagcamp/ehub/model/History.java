@@ -15,9 +15,17 @@ public class History {
     @JoinColumn(name = "username")
     private User buyer;
 
-    private String details;
 
-    private LocalDateTime checkOutTime;
+    private String owner;
+
+    private float price;
+
+    private String name;
+
+    private int count;
+
+
+    private String checkOutTime;
 
     public History(){}
 
@@ -39,21 +47,41 @@ public class History {
         return this;
     }
 
-    public String getDetails() {
-        return details;
-    }
 
-    public History setDetails(String details) {
-        this.details = details;
-        return this;
-    }
 
-    public LocalDateTime getCheckOutTime() {
+    public String getCheckOutTime() {
         return checkOutTime;
     }
 
-    public History setCheckOutTime(LocalDateTime checkOutTime) {
+    public History setCheckOutTime(String checkOutTime) {
         this.checkOutTime = checkOutTime;
         return this;
     }
+
+    public History setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getName() {return name;}
+
+    public History setOwner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+    public String getOwner() {return owner;}
+
+    public History setPrice(float price) {
+        this.price = price;
+        return this;
+    }
+
+    public History setCount(int count) {
+        this.count = count;
+        return this;
+    }
+
+    public int getCount() {return count;}
+
+    public float getPrice() {return  price;}
 }
